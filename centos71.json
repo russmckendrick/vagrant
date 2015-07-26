@@ -1,9 +1,4 @@
 {
-  "variables": {
-    "atlas_username": "russmckendrick",
-    "atlas_name": "centos71",
-    "mirror": "http://centos.mirroring.pulsant.co.uk"
-  },
   "builders": [
     {
       "boot_command": [
@@ -18,6 +13,7 @@
       "iso_checksum": "7cf1ac8da13f54d6be41e3ccf228dc5bb35792f515642755ff4780d5714d4278",
       "iso_checksum_type": "sha256",
       "iso_url": "{{user `mirror`}}/7.1.1503/isos/x86_64/CentOS-7-x86_64-Minimal-1503-01.iso",
+      "name": "vagrant-virtualbox",
       "shutdown_command": "sudo /sbin/halt -p",
       "ssh_password": "vagrant",
       "ssh_username": "vagrant",
@@ -48,6 +44,7 @@
       "iso_checksum": "7cf1ac8da13f54d6be41e3ccf228dc5bb35792f515642755ff4780d5714d4278",
       "iso_checksum_type": "sha256",
       "iso_url": "{{user `mirror`}}/7.1.1503/isos/x86_64/CentOS-7-x86_64-Minimal-1503-01.iso",
+      "name": "vagrant-vmware",
       "shutdown_command": "sudo /sbin/halt -p",
       "ssh_password": "vagrant",
       "ssh_username": "vagrant",
@@ -64,8 +61,8 @@
     {
       "execute_command": "sudo {{.Vars}} sh {{.Path}}",
       "only": [
-        "virtualbox-iso",
-        "vmware-iso"
+        "vagrant-vmware",
+        "vagrant-virtualbox"
       ],
       "scripts": [
         "scripts/centos71/base.sh",
@@ -78,7 +75,7 @@
     }
   ],
   "push": {
-    "name": "{{user `atlas_username`}}/{{user `atlas_name`}}",
+    "name": "{{user `push_name`}}",
     "vcs": true
   },
   "post-processors": [
@@ -87,28 +84,33 @@
     "keep_input_artifact": false
     },  
     {
-      "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
+      "artifact": "{{user `artifact`}}",
       "artifact_type": "vagrant.box",
       "metadata": {
         "provider": "vmware_fusion",
         "version": "0.0.1"
       },
       "only": [
-        "vmware-iso"
+        "vagrant-vmware"
       ],
       "type": "atlas"
     },
     {
-      "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
+      "artifact": "{{user `artifact`}}",
       "artifact_type": "vagrant.box",
       "metadata": {
         "provider": "virtualbox",
         "version": "0.0.1"
       },
       "only": [
-        "virtualbox-iso"
+        "vagrant-virtualbox"
       ],
       "type": "atlas"
     }
-  ]
+  ],
+  "variables": {
+    "artifact": "russmckendrick/centos71",
+    "mirror": "http://centos.mirroring.pulsant.co.uk",
+    "push_name": "russmckendrick/centos71"
+  }
 }
