@@ -98,36 +98,6 @@
       }
     }
   ],
-  "post-processors": [
-    {
-    "type": "vagrant",
-    "keep_input_artifact": false
-    },
-    {
-      "artifact": "{{user `artifact`}}",
-      "artifact_type": "vagrant.box",
-      "metadata": {
-        "provider": "vmware_fusion",
-        "version": "user `artifact_version`"
-      },
-      "only": [
-        "vagrant-vmware"
-      ],
-      "type": "atlas"
-    },
-    {
-      "artifact": "{{user `artifact`}}",
-      "artifact_type": "vagrant.box",
-      "metadata": {
-        "provider": "virtualbox",
-        "version": "user `artifact_version`"
-      },
-      "only": [
-        "vagrant-virtualbox"
-      ],
-      "type": "atlas"
-    }
-  ],
   "provisioners": [
     {
       "type": "shell",
@@ -158,9 +128,38 @@
     "name": "{{user `push_name`}}",
     "vcs": true
   },
+  "post-processors": [
+    {
+    "type": "vagrant",
+    "keep_input_artifact": false
+    },
+    {
+      "artifact": "{{user `artifact`}}",
+      "artifact_type": "vagrant.box",
+      "metadata": {
+        "provider": "vmware_fusion",
+        "version": "0.0.1"
+      },
+      "only": [
+        "vagrant-vmware"
+      ],
+      "type": "atlas"
+    },
+    {
+      "artifact": "{{user `artifact`}}",
+      "artifact_type": "vagrant.box",
+      "metadata": {
+        "provider": "virtualbox",
+        "version": "0.0.1"
+      },
+      "only": [
+        "vagrant-virtualbox"
+      ],
+      "type": "atlas"
+    }
+  ],
   "variables": {
     "artifact": "russmckendrick/ubuntu1504",
-    "artifact_version": "0.0.1",
     "mirror": "http://releases.ubuntu.com",
     "push_name": "russmckendrick/ubuntu1504"
   }
