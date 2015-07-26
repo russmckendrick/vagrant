@@ -124,21 +124,21 @@
       }
     }
   ],
-  "push": {
-    "name": "{{user `push_name`}}",
+ "push": {
+    "name": "{{user `atlas_username`}}/{{user `atlas_name`}}",
     "vcs": true
   },
   "post-processors": [
-    {
+    [{
     "type": "vagrant",
     "keep_input_artifact": false
     },
     {
-      "artifact": "{{user `artifact`}}",
+      "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
       "artifact_type": "vagrant.box",
       "metadata": {
         "provider": "vmware_fusion",
-        "version": "0.0.1"
+        "version": "{{user `artifactversion`}}"
       },
       "only": [
         "vagrant-vmware"
@@ -146,21 +146,22 @@
       "type": "atlas"
     },
     {
-      "artifact": "{{user `artifact`}}",
+      "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
       "artifact_type": "vagrant.box",
       "metadata": {
         "provider": "virtualbox",
-        "version": "0.0.1"
+        "version": "{{user `artifactversion`}}"
       },
       "only": [
         "vagrant-virtualbox"
       ],
       "type": "atlas"
-    }
+    }]
   ],
   "variables": {
-    "artifact": "russmckendrick/ubuntu1404",
-    "mirror": "http://releases.ubuntu.com",
-    "push_name": "russmckendrick/ubuntu1404"
+    "atlas_username": "russmckendrick",
+    "atlas_name": "ubuntu1404",
+    "artifactversion": "0.0.1",
+    "mirror": "http://releases.ubuntu.com"
   }
 }
