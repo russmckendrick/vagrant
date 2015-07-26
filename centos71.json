@@ -59,10 +59,15 @@
   ],
   "post-processors": [
     {
+    "type": "vagrant",
+    "keep_input_artifact": false
+    },  
+    {
       "artifact": "{{user `artifact`}}",
       "artifact_type": "vagrant.box",
       "metadata": {
-        "provider": "vmware_fusion"
+        "provider": "vmware_fusion",
+        "version": "user `artifact_version`"
       },
       "only": [
         "vagrant-vmware"
@@ -73,7 +78,8 @@
       "artifact": "{{user `artifact`}}",
       "artifact_type": "vagrant.box",
       "metadata": {
-        "provider": "virtualbox"
+        "provider": "virtualbox",
+        "version": "user `artifact_version`"
       },
       "only": [
         "vagrant-virtualbox"
@@ -104,9 +110,8 @@
   },
   "variables": {
     "artifact": "russmckendrick/centos71",
+    "artifact_version": "0.0.1",
     "mirror": "http://centos.mirroring.pulsant.co.uk",
-    "push_name": "russmckendrick/centos71",
-    "version": "{{env `VERSION`}}"
+    "push_name": "russmckendrick/centos71"
   }
 }
-
