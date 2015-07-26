@@ -87,7 +87,7 @@
       "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
       "artifact_type": "vagrant.box",
       "metadata": {
-        "provider": "vmware_fusion",
+        "provider": "vmware_desktop",
         "version": "{{user `artifactversion`}}"
       },
       "only": [
