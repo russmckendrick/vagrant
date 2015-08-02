@@ -1,11 +1,25 @@
-sudo apt-get -y update
-sudo apt-get -y upgrade
-sudo apt-get -y install git vim
+# Update the box
+apt-get -y update
+apt-get -y install linux-headers-$(uname -r) build-essential
+apt-get -y install zlib1g-dev libssl-dev libreadline-gplv2-dev
+apt-get -y install curl unzip vim git
 
-sudo sed -i -e '/Defaults\s\+env_reset/a Defaults\texempt_group=sudo' /etc/sudoers
-sudo sed -i -e 's/%sudo  ALL=(ALL:ALL) ALL/%sudo  ALL=NOPASSWD:ALL/g' /etc/sudoers
+# Set up sudo
+echo 'vagrant ALL=NOPASSWD:ALL' > /etc/sudoers.d/vagrant
 
-echo "UseDNS no" >> /etc/ssh/sshd_configs
+# Tweak sshd to prevent DNS resolution (speed up logins)
+echo 'UseDNS no' >> /etc/ssh/sshd_config
 
-sudo reboot
-sudo sleep 60
+# Remove 5s grub timeout to speed up booting
+cat <<EOF > /etc/default/grub
+# If you change this file, run 'update-grub' afterwards to update
+# /boot/grub/grub.cfg.
+
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=0
+GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
+GRUB_CMDLINE_LINUX_DEFAULT="quiet"
+GRUB_CMDLINE_LINUX="debian-installer=en_US"
+EOF
+
+update-grub

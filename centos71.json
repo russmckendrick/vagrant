@@ -66,10 +66,10 @@
       ],
       "scripts": [
         "scripts/centos71/base.sh",
-        "scripts/common/vagrant.sh",
+        "scripts/centos71/vagrant.sh",
         "scripts/centos71/vmtools.sh",
         "scripts/centos71/cleanup.sh",
-        "scripts/common/zerodisk.sh"
+        "scripts/centos71/zerodisk.sh"
       ],
       "type": "shell"
     }

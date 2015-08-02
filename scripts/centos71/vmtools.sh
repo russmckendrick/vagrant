@@ -18,4 +18,7 @@ cd /tmp/vmware-tools-distrib
 umount /mnt/cdrom
 rm -rf /tmp/vmware-tools-distrib
 rm -rf /home/vagrant/linux.iso
+sed -i 's/answer AUTO_KMODS_ENABLED no/answer AUTO_KMODS_ENABLED yes/g' /etc/vmware-tools/locations
+sed -i 's/answer AUTO_KMODS_ENABLED_ANSWER no/answer AUTO_KMODS_ENABLED_ANSWER yes/g' /etc/vmware-tools/locations
+/usr/bin/vmware-config-tools.pl --default
 fi
