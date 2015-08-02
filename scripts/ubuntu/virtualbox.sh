@@ -1,14 +1,4 @@
-# Without libdbus virtualbox would not start automatically after compile
+#!/bin/bash
 apt-get -y install --no-install-recommends libdbus-1-3
-
 aptitude -y install dkms
-
-# Install the VirtualBox guest additions
-VBOX_VERSION=$(cat /home/vagrant/.vbox_version)
-VBOX_ISO=VBoxGuestAdditions_$VBOX_VERSION.iso
-mount -o loop $VBOX_ISO /mnt
-yes|sh /mnt/VBoxLinuxAdditions.run
-umount /mnt
-
-# Cleanup VirtualBox
-rm $VBOX_ISO
+apt-get -y install virtualbox-guest-utils
