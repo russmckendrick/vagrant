@@ -1,6 +1,6 @@
 #!/bin/bash
 apt-get -y update
-apt-get -y install vim git
+apt-get -y install vim git curl
 echo 'vagrant ALL=NOPASSWD:ALL' > /etc/sudoers.d/vagrant
 echo 'UseDNS no' >> /etc/ssh/sshd_config
 cat <<EOF > /etc/default/grub

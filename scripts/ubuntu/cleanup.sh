@@ -1,6 +1,9 @@
 #!/bin/bash
 sudo echo "cleaning up guest additions"
-sudo rm -rf VBoxGuestAdditions_*.iso VBoxGuestAdditions_*.iso.?
+
+apt-get -y --purge remove linux-headers-$(uname -r) build-essential
+apt-get -y autoremove
+apt-get -y clean
 
 sudo echo "cleaning up dhcp leases"
 sudo rm /var/lib/dhcp/*
