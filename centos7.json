@@ -1,0 +1,117 @@
+{
+  "builders": [
+    {
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos71.cfg<enter><wait>"
+      ],
+      "disk_size": "100000",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "guest_additions_sha256": "c5e46533a6ff8df177ed5c9098624f6cec46ca392bab16de2017195580088670",
+      "guest_os_type": "RedHat_64",
+      "headless": "false",
+      "http_directory": "http",
+      "iso_checksum": "04e99a4f1a013b95a7ebc9a90ffa9ac64d28eb9872bc193fbd7c581ec9b6a360",
+      "iso_checksum_type": "sha256",
+      "iso_url": "{{user `mirror`}}/7.0.1406/isos/x86_64/CentOS-7.0-1406-x86_64-Minimal.iso",
+      "name": "vagrant-virtualbox",
+      "shutdown_command": "sudo /sbin/halt -p",
+      "ssh_password": "vagrant",
+      "ssh_username": "vagrant",
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "512"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ]
+      ]
+    },
+    {
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos71.cfg<enter><wait>"
+      ],
+      "disk_size": "100000",
+      "guest_os_type": "centos-64",
+      "headless": "true",
+      "http_directory": "http",
+      "iso_checksum": "04e99a4f1a013b95a7ebc9a90ffa9ac64d28eb9872bc193fbd7c581ec9b6a360",
+      "iso_checksum_type": "sha256",
+      "iso_url": "{{user `mirror`}}/7.0.1406/isos/x86_64/CentOS-7.0-1406-x86_64-Minimal.iso",
+      "name": "vagrant-vmware",
+      "shutdown_command": "sudo /sbin/halt -p",
+      "ssh_password": "vagrant",
+      "ssh_username": "vagrant",
+      "tools_upload_flavor": "linux",
+      "type": "vmware-iso",
+      "vmx_data": {
+        "memsize": "512",
+        "numvcpus": "1",
+        "vhv.enable": "TRUE"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "sudo {{.Vars}} sh {{.Path}}",
+      "only": [
+        "vagrant-vmware",
+        "vagrant-virtualbox"
+      ],
+      "scripts": [
+        "scripts/centos71/base.sh",
+        "scripts/centos71/vagrant.sh",
+        "scripts/centos71/vmtools.sh",
+        "scripts/centos71/cleanup.sh",
+        "scripts/centos71/zerodisk.sh"
+      ],
+      "type": "shell"
+    }
+  ],
+ "push": {
+    "name": "{{user `atlas_username`}}/{{user `atlas_name`}}",
+    "vcs": true
+  },
+  "post-processors": [
+    [{
+    "type": "vagrant",
+    "keep_input_artifact": false
+    },
+    {
+      "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
+      "artifact_type": "vagrant.box",
+      "metadata": {
+        "provider": "vmware_desktop",
+        "version": "{{user `artifactversion`}}"
+      },
+      "only": [
+        "vagrant-vmware"
+      ],
+      "type": "atlas"
+    },
+    {
+      "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
+      "artifact_type": "vagrant.box",
+      "metadata": {
+        "provider": "virtualbox",
+        "version": "{{user `artifactversion`}}"
+      },
+      "only": [
+        "vagrant-virtualbox"
+      ],
+      "type": "atlas"
+    }]
+  ],
+  "variables": {
+    "atlas_username": "russmckendrick",
+    "atlas_name": "centos7",
+    "artifactversion": "0.0.1",
+    "mirror": "http://vault.centos.org/"
+  }
+}
