@@ -114,6 +114,6 @@
     "atlas_username": "russmckendrick",
     "atlas_name": "centos7",
     "artifactversion": "0.0.1",
-    "mirror": "http://vault.centos.org/"
+    "mirror": "http://mirror.nsc.liu.se/"
   }
 }
