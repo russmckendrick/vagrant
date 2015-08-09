@@ -161,7 +161,7 @@
   "variables": {
     "atlas_username": "russmckendrick",
     "atlas_name": "ubuntu1404",
-    "artifactversion": "0.0.2",
+    "artifactversion": "0.0.1",
     "mirror": "http://releases.ubuntu.com"
   }
 }
