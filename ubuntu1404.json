@@ -29,9 +29,9 @@
       "disk_size": 40960,
       "guest_os_type": "Ubuntu_64",
       "http_directory": "http",
-      "iso_checksum": "83aabd8dcf1e8f469f3c72fff2375195",
+      "iso_checksum": "9e5fecc94b3925bededed0fdca1bd417",
       "iso_checksum_type": "md5",
-      "iso_url": "{{user `mirror`}}/14.04/ubuntu-14.04.2-server-amd64.iso",
+      "iso_url": "{{user `mirror`}}/14.04/ubuntu-14.04.3-server-amd64.iso",
       "name": "vagrant-virtualbox",
       "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
       "ssh_password": "vagrant",
@@ -83,9 +83,9 @@
       "disk_size": 40960,
       "guest_os_type": "linux",
       "http_directory": "http",
-      "iso_checksum": "83aabd8dcf1e8f469f3c72fff2375195",
+      "iso_checksum": "9e5fecc94b3925bededed0fdca1bd417",
       "iso_checksum_type": "md5",
-      "iso_url": "{{user `mirror`}}/14.04/ubuntu-14.04.2-server-amd64.iso",
+      "iso_url": "{{user `mirror`}}/14.04/ubuntu-14.04.3-server-amd64.iso",
       "name": "vagrant-vmware",
       "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
       "ssh_password": "vagrant",
@@ -161,7 +161,7 @@
   "variables": {
     "atlas_username": "russmckendrick",
     "atlas_name": "ubuntu1404",
-    "artifactversion": "0.0.1",
+    "artifactversion": "0.0.2",
     "mirror": "http://releases.ubuntu.com"
   }
 }
